@@ -56,7 +56,7 @@ House-Price-Prediction-with-Machine-Learning
 │
 ├── data
 │   ├── raw
-│   │   ├── vivienda.csv
+│   │   └── vivienda.csv
 │   │   └── vivienda_new.csv
 │   │
 │   └── processed
@@ -68,7 +68,7 @@ House-Price-Prediction-with-Machine-Learning
 ├── src
 │   ├── preprocessing.py
 │   ├── outliers.py
-│   ├── train_model.py
+│   └── train_model.py
 │   └── evaluation.py
 │
 ├── images
@@ -78,6 +78,7 @@ House-Price-Prediction-with-Machine-Learning
 │
 └── results
     └── predictions.csv
+
 
 ---
 
@@ -132,7 +133,7 @@ Error: 0.7
 
 ---
 
-## Autor
+## 👨‍🏫 Autor
 
 César Quezada
 Científico de Datos | Docente Universitario | Mentor
