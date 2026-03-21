@@ -85,14 +85,13 @@ House-Price-Prediction-with-Machine-Learning
 
 ## Descripción de carpetas
 
-```
-data/ → contiene datos originales (vivienda, vivienda_new) y procesados.
-notebooks/ → análisis exploratorio y desarrollo del modelo.
-src/ → funciones reutilizables (preprocesamiento, modelado, evaluación).
-images/ → visualizaciones generadas durante el análisis.
-models/ → modelo entrenado guardado con pickle.
-results/ → predicciones y métricas finales.
-```
+* `data/ → contiene datos originales (vivienda, vivienda_new) y procesados.
+* `notebooks/ → análisis exploratorio y desarrollo del modelo.
+* `src/ → funciones reutilizables (preprocesamiento, modelado, evaluación).
+* `images/ → visualizaciones generadas durante el análisis.
+* `models/ → modelo entrenado guardado con pickle.
+* `results/ → predicciones y métricas finales.
+
 ---
 
 ## Flujo del análisis
