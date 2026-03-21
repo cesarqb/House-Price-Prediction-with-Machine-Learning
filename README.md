@@ -46,8 +46,9 @@ Durante el proyecto se aplican diferentes técnicas de Ciencia de Datos:
 
 ---
 
-## Estructura del proyecto
+## 📁 Estructura del proyecto
 
+```
 House-Price-Prediction-with-Machine-Learning
 │
 ├── README.md
