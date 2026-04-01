@@ -69,6 +69,7 @@ House-Price-Prediction-with-Machine-Learning
 ├── src
 │   ├── preprocessing.py
 │   ├── outliers.py
+│   ├── eda_evaluation.py
 │   ├── train_model.py
 │   └── evaluation.py
 │
