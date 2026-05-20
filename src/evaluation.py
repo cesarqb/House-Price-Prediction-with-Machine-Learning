@@ -124,3 +124,58 @@ def analizar_residuos(y_true, y_pred, feature=None, feature_name=None):
 
     return residuos
 
+
+def detectar_viviendas_subvaloradas(X, y_real, y_pred):
+    """
+    Detecta viviendas cuyo precio real es menor al predicho
+    """
+
+    df = X.copy()
+
+    df["PRICE_REAL"] = y_real
+    df["PRICE_PRED"] = y_pred
+
+    # Error
+    df["ERROR"] = df["PRICE_PRED"] - df["PRICE_REAL"]
+
+    # Porcentaje de subvaloración
+    df["PORCENTAJE_SUBVALORACION"] = (
+        df["ERROR"] / df["PRICE_REAL"]
+    ) * 100
+
+    # Filtrar subvaloradas
+    subvaloradas = df[df["PRICE_REAL"] < df["PRICE_PRED"]]
+
+    # Ordenar
+    subvaloradas = subvaloradas.sort_values(
+        by="PORCENTAJE_SUBVALORACION",
+        ascending=False
+    )
+
+    return subvaloradas
+
+
+
+def plot_subvaloradas(subvaloradas):
+    
+    plt.figure(figsize=(10,6))
+
+    sns.histplot(
+        subvaloradas['ERROR'],
+        bins=30,
+        kde=True
+    )
+
+    plt.title('Distribución de errores - viviendas subvaloradas')
+    plt.xlabel('Error (Predicción - Real)')
+    plt.ylabel('Frecuencia')
+
+    plt.axvline(
+        subvaloradas['ERROR'].mean(),
+        color='red',
+        linestyle='--',
+        label=f"Media: {subvaloradas['ERROR'].mean():.2f}"
+    )
+
+    plt.legend()
+    plt.show()

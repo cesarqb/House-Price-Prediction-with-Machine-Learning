@@ -166,3 +166,39 @@ def guardar_modelo(objeto, nombre_modelo="modelo"):
     print(f" Modelo guardado en: {ruta}")
 
     return ruta
+
+
+def cargar_modelo(nombre_archivo, carpeta="models"):
+    """
+    Carga un modelo previamente guardado.
+
+    Parámetros:
+    ----------
+    nombre_archivo : str
+        Nombre completo del archivo .pkl
+
+    carpeta : str
+        Carpeta donde está almacenado el modelo
+
+    Retorna:
+    -------
+    objeto : modelo cargado
+    """
+
+    # Ruta absoluta del proyecto
+    base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+
+    # Ruta completa del archivo
+    ruta = os.path.join(base_path, carpeta, nombre_archivo)
+
+    # Validar existencia
+    if not os.path.exists(ruta):
+        raise FileNotFoundError(f"No se encontró el archivo: {ruta}")
+
+    # Cargar modelo
+    with open(ruta, "rb") as f:
+        objeto = pickle.load(f)
+
+    print(f" Modelo cargado correctamente desde:\n{ruta}")
+
+    return objeto
