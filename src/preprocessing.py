@@ -6,6 +6,7 @@ import pandas as pd
 import numpy as np
 from scipy.stats import skew, kurtosis
 import scipy.stats as stats
+from scipy.stats.mstats import winsorize
 
 def obtener_correlaciones(df, variables):
     """
@@ -85,3 +86,53 @@ def feature_engineering(df):
     }
 
     return df, var_engineering, lambdas
+
+
+
+def preparar_nueva_data(df):
+
+    # Copia
+    df = df.copy()
+
+    # Tipos
+    df['CHAS'] = df['CHAS'].astype('object')
+
+    # Eliminar columnas
+    df = df.drop(['RAD', 'NOX'], axis=1)
+
+    # Imputaciones
+    df['ZN_imput'] = df['ZN']
+
+    limite_inf = df['ZN_imput'].mean() - 3 * df['ZN_imput'].std()
+    limite_sup = df['ZN_imput'].mean() + 3 * df['ZN_imput'].std()
+
+    media = df['ZN_imput'].mean()
+
+    df['ZN_imput'] = np.where(
+        (df['ZN_imput'] < limite_inf) |
+        (df['ZN_imput'] > limite_sup),
+        media,
+        df['ZN_imput']
+    )
+
+    # Winsorize
+    df['ZN_imput_winsorized'] = winsorize(
+        df['ZN'],
+        limits=[0, 0.05]
+    )
+
+    # Log
+    df["log_CRIM"] = np.log(df["CRIM"] + 1e-5)
+    df["log_ZN"] = np.log(df["ZN"] + 1e-5)
+    df["log_LSTAT"] = np.log(df["LSTAT"] + 1e-5)
+
+    # Sqrt
+    df["sqrt_DIS"] = np.sqrt(df["DIS"])
+    df["sqrt_INDUS"] = np.sqrt(df["INDUS"])
+
+    # Boxcox
+    df['AGE_boxcox'], _ = stats.boxcox(df['AGE'])
+    df['DIS_boxcox'], _ = stats.boxcox(df['DIS'])
+    df['LSTAT_boxcox'], _ = stats.boxcox(df['LSTAT'])
+
+    return df
